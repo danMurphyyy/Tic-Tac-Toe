@@ -64,6 +64,13 @@ const gameController = (() => {
 
 const displayController = (() => {
   const cells = document.querySelectorAll(".cell");
+  const resetBoardButton = document.getElementById("reset-board");
+  const resetGameButton = document.getElementById("reset-game");
+
+  resetBoardButton.addEventListener("click", () => {
+    gameBoard.reset();
+    render();
+  })
 
   cells.forEach((cell, index) => {
     cell.addEventListener("click", () => {
