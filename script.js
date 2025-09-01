@@ -25,6 +25,8 @@ const player = (name, marker) => {
 const gameController = (() => {
   const player1 = player("Player 1", "X");
   const player2 = player("Player 2", "O");
+  let player1Score = 0;
+  let player2Score = 0;
   let activePlayer = player1;
 
   const switchPlayer = () => {
@@ -39,6 +41,9 @@ const gameController = (() => {
     if (gameBoard.setCell(index, activePlayer.marker)) {
       if (checkWinner()) {
         console.log(`${activePlayer.name} wins!`);
+        if(activePlayer === player1) player1Score++;
+        else player2Score++;
+        gameBoard.reset();
       } else {
         switchPlayer();
       }

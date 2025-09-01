@@ -3,6 +3,18 @@ body {
   margin: 0px;
 }
 
+.player-scores-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 200px;
+}
+
+.player-container{
+  display: flex;
+  flex-direction: column;
+}
+
 .header {
   display: flex;
   align-items: center;
@@ -46,5 +58,5 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 10px; 
 }
