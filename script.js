@@ -29,6 +29,10 @@ const gameController = (() => {
   let player2Score = 0;
   let activePlayer = player1;
 
+  const getScores = () => {
+    return {player1Score, player2Score};
+  }
+
   const switchPlayer = () => {
     if (activePlayer === player1) {
       activePlayer = player2;
@@ -37,13 +41,17 @@ const gameController = (() => {
     }
   }
 
+  const resetPlayerScores = () => {
+    player1Score = 0;
+    player2Score = 0;
+  }
+
   const playRound = (index) => {
     if (gameBoard.setCell(index, activePlayer.marker)) {
       if (checkWinner()) {
         console.log(`${activePlayer.name} wins!`);
         if(activePlayer === player1) player1Score++;
         else player2Score++;
-        gameBoard.reset();
       } else {
         switchPlayer();
       }
@@ -64,7 +72,7 @@ const gameController = (() => {
     );
   };
 
-  return {playRound};
+  return {playRound, resetPlayerScores, getScores};
 })();
 
 const displayController = (() => {
@@ -74,6 +82,12 @@ const displayController = (() => {
 
   resetBoardButton.addEventListener("click", () => {
     gameBoard.reset();
+    render();
+  });
+
+  resetGameButton.addEventListener("click", () => {
+    gameBoard.reset();
+    gameController.resetPlayerScores();
     render();
   })
 
@@ -85,10 +99,17 @@ const displayController = (() => {
   });
 
   const render = () => {
+    const p1Score = document.getElementById("player-1-score");
+    const p2Score = document.getElementById("player-2-score");
     const board = gameBoard.getBoard();
+
     cells.forEach((cell, index) => {
       cell.textContent = board[index];
     });
+
+    const scores = gameController.getScores();
+    p1Score.textContent = scores.player1Score;
+    p2Score.textContent = scores.player2Score;
   };
 
   return {render};
